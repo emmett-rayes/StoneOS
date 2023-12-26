@@ -30,6 +30,11 @@ mod cpu;
 /// This is the core component of the operating system, responsible for essentials like task and memory management.
 mod kernel;
 
+/// Memory Module
+///
+/// This module encapsulates memory-related functionality and implementations.
+mod memory;
+
 /// # Panic Module
 ///
 /// This module defines a custom panic handler for operating system.

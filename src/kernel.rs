@@ -1,4 +1,6 @@
-#[no_mangle]
+use crate::arch::Arch;
+use crate::cpu::Cpu;
+
 pub fn main() -> ! {
-    panic!()
+    Arch::park_core();
 }
