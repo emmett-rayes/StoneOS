@@ -11,9 +11,9 @@
 boot:
     // Only proceed on the boot core. Park it otherwise.
     mrs x0, MPIDR_EL1
-    ldr x1, CORE_ID_MASK    // provided by arch/aarch64/boot.rs
+    ldr x1, CORE_ID_MASK    // provided by src/arch/aarch64/boot.rs
     and x0, x0, x1
-    ldr x1, BOOT_CORE_ID    // provided by arch/aarch64/boot.rs
+    ldr x1, BOOT_CORE_ID    // provided by src/arch/aarch64/boot.rs
     cmp x0, x1
     b.ne .L_parking_loop
 
@@ -33,7 +33,7 @@ boot:
     mov sp, x0
 
     // Jump to kernel code.
-    b start_kernel
+    b start_kernel    // provided by src/boot.rs
 
 .L_parking_loop:
     wfe

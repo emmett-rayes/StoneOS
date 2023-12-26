@@ -55,8 +55,8 @@ SECTIONS
     } :segment_code
 
     .rodata : ALIGN(8) {
-        *(.rodata*)
-        *(.rodata.boot_args)     /* Boot arguments read by .text.boot */
+        *(.rodata.boot_args*)    /* Boot arguments read by .text.boot */
+        *(.rodata*)              /* Everything else */
     } :segment_code
 
     /***********************************************************************************************
