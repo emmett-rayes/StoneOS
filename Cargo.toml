@@ -6,4 +6,11 @@ readme = "README.md"
 authors = ["Emmett Rayes <emmett.rayes@icloud.com>"]
 
 
+[features]
+default = ["bsp_rpi4"]
+bsp_rpi4 = []
+
 [dependencies]
+
+[target.'cfg(target_arch = "aarch64")'.dependencies]
+aarch64-cpu = "9.4.0"
