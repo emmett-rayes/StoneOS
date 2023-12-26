@@ -37,11 +37,11 @@ SECTIONS
     ***********************************************************************************************/
     .boot_core_stack (NOLOAD) :
     {
-                                             /*   ^             */
-                                             /*   | stack       */
-        . += __rpi_phys_binary_load_addr;    /*   | growth      */
-                                             /*   | direction   */
-        __boot_core_stack_end_exclusive = .; /*   |             */
+                                                /*   ^             */
+                                                /*   | stack       */
+        . += __rpi_phys_binary_load_addr;       /*   | growth      */
+                                                /*   | direction   */
+        __boot_core_stack_end_exclusive = .;    /*   |             */
     } :segment_boot_core_stack
 
     /***********************************************************************************************
@@ -50,13 +50,13 @@ SECTIONS
     .text :
     {
         KEEP(*(.text.boot))
-        *(.text.start_kernel)      /* The kernel entry point */
-        *(.text*)                  /* Everything else */
+        *(.text.start_kernel)    /* The kernel entry point */
+        *(.text*)                /* Everything else */
     } :segment_code
 
     .rodata : ALIGN(8) {
         *(.rodata*)
-        *(.rodata.boot_args)         /* Boot arguments read by .text.boot */
+        *(.rodata.boot_args)     /* Boot arguments read by .text.boot */
     } :segment_code
 
     /***********************************************************************************************
