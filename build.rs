@@ -1,9 +1,11 @@
-use std::fs;
+#[cfg(feature = "boot_legacy")]
+fn rpi4_legacy_boot_linker_script() {
+    use std::fs;
 
-const LD_SCRIPT_PATH: &str = "./src/bsp/rpi4/memory";
-const KERNEL_LINKER_SCRIPT: &str = "kernel.ld";
+    const LD_SCRIPT_PATH: &str = "./src/bsp/rpi4/boot";
 
-fn main() {
+    const KERNEL_LINKER_SCRIPT: &str = "kernel.ld";
+
     if fs::read_dir(LD_SCRIPT_PATH).unwrap().next().is_some() {
         println!("cargo:rustc-link-arg=--library-path={}", LD_SCRIPT_PATH);
         println!("cargo:rustc-link-arg=--script={}", KERNEL_LINKER_SCRIPT);
@@ -21,4 +23,9 @@ fn main() {
 
         files.for_each(|f| println!("cargo:rerun-if-changed={}", f.path().display()));
     }
+}
+
+fn main() {
+    #[cfg(feature = "boot_legacy")]
+    rpi4_legacy_boot_linker_script();
 }

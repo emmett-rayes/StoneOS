@@ -7,8 +7,10 @@ authors = ["Emmett Rayes <emmett.rayes@icloud.com>"]
 
 
 [features]
-default = ["bsp_rpi4"]
+default = ["bsp_rpi4", "boot_legacy"]
 bsp_rpi4 = []
+boot_legacy = []
+boot_uefi = []
 
 [dependencies]
 
