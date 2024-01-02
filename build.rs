@@ -1,5 +1,4 @@
-#[cfg(feature = "boot_bios")]
-#[cfg(feature = "bsp_rpi4")]
+#[cfg(all(feature = "bsp_rpi4", feature = "boot_bios"))]
 fn rpi4_bios_boot_linker_script() {
     use std::fs;
 
@@ -27,7 +26,6 @@ fn rpi4_bios_boot_linker_script() {
 }
 
 fn main() {
-    #[cfg(feature = "boot_bios")]
-    #[cfg(feature = "bsp_rpi4")]
+    #[cfg(all(feature = "bsp_rpi4", feature = "boot_bios"))]
     rpi4_bios_boot_linker_script();
 }
