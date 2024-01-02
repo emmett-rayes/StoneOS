@@ -33,7 +33,7 @@ boot:
     mov sp, x0
 
     // Jump to kernel code.
-    b start_kernel    // provided by src/boot.rs
+    b start    // provided by src/boot/bios.rs
 
 .L_parking_loop:
     wfe
