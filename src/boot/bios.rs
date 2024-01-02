@@ -1,4 +1,4 @@
-pub trait LegacyBoot {
+pub trait BiosBoot {
     const BOOT_CORE_ID: u64;
 }
 

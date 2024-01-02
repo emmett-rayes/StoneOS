@@ -1,5 +1,5 @@
-#[cfg(feature = "boot_legacy")]
-fn rpi4_legacy_boot_linker_script() {
+#[cfg(feature = "boot_bios")]
+fn rpi4_bios_boot_linker_script() {
     use std::fs;
 
     const LD_SCRIPT_PATH: &str = "./src/bsp/rpi4/boot";
@@ -26,6 +26,6 @@ fn rpi4_legacy_boot_linker_script() {
 }
 
 fn main() {
-    #[cfg(feature = "boot_legacy")]
-    rpi4_legacy_boot_linker_script();
+    #[cfg(feature = "boot_bios")]
+    rpi4_bios_boot_linker_script();
 }

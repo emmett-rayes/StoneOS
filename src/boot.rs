@@ -1,4 +1,6 @@
-#[cfg(feature = "boot_legacy")]
-pub mod legacy;
+#[cfg(feature = "boot_bios")]
+pub mod bios;
+
+#[cfg(target_os = "uefi")]
 #[cfg(feature = "boot_uefi")]
 pub mod uefi;

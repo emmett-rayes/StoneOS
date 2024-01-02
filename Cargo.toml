@@ -5,11 +5,10 @@ edition = "2021"
 readme = "README.md"
 authors = ["Emmett Rayes <emmett.rayes@icloud.com>"]
 
-
 [features]
 default = ["bsp_rpi4", "boot_uefi"]
 bsp_rpi4 = []
-boot_legacy = []
+boot_bios = []
 boot_uefi = []
 
 [dependencies]

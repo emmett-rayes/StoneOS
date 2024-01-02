@@ -1,2 +1,2 @@
-#[cfg(feature = "boot_legacy")]
-mod legacy;
+#[cfg(feature = "boot_bios")]
+mod bios;

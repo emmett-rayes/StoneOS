@@ -1,6 +1,6 @@
 use core::arch::global_asm;
 
-use crate::boot::legacy::LegacyBoot;
+use crate::boot::bios::BiosBoot;
 use crate::bsp::Bsp;
 
 #[no_mangle]
@@ -11,4 +11,4 @@ pub static CORE_ID_MASK: u64 = 0b11;
 #[link_section = ".rodata.boot_args"]
 pub static BOOT_CORE_ID: u64 = Bsp::BOOT_CORE_ID;
 
-global_asm!(include_str!("legacy/boot.asm"));
+global_asm!(include_str!("bios/boot.asm"));

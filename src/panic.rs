@@ -1,5 +1,5 @@
 //! Until the bootloader is compiled separately from the kernel,
-//! a panic handler is needed only for legacy boot as the uefi crate comes with its own panic handler.
+//! a panic handler is needed only for bios boot as the uefi crate comes with its own panic handler.
 
 #[cfg(not(feature = "boot_uefi"))]
 use core::panic::PanicInfo;
