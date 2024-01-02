@@ -6,5 +6,5 @@ pub trait BiosBoot {
 
 #[no_mangle]
 pub fn start() -> ! {
-    crate::kernel::main();
+    crate::kernel::main(BootInfo);
 }
