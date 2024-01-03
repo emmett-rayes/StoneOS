@@ -1,5 +1,6 @@
 use log::info;
 use uefi::prelude::*;
+
 use crate::boot::BootInfo;
 
 #[entry]
