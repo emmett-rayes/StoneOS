@@ -48,8 +48,3 @@ mod panic;
 /// # Print Module
 ///
 mod print;
-
-/// # Synchronization Module
-///
-/// This module implements basic synchronization primitives that are used to ensure thread safety.
-mod sync;

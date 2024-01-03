@@ -1,6 +1,5 @@
 //! Until the bootloader is compiled separately from the kernel,
-//! a panic handler is needed only for bios boot as the uefi crate comes with its own panic handler.
-
+//! a panic handler is needed only for non-uefi boot as the uefi crate comes with its own panic handler.
 #[cfg(not(feature = "boot_uefi"))]
 mod no_uefi_panic {
     use core::panic::PanicInfo;
