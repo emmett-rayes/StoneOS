@@ -1,5 +1,6 @@
 #![no_std]
 #![no_main]
+#![feature(type_alias_impl_trait)]
 
 /// # Architecture Module
 ///
@@ -20,6 +21,10 @@ mod boot;
 /// It is specific to the target hardware platform.
 mod bsp;
 
+/// # Console Module
+///
+mod console;
+
 /// # CPU Module
 ///
 /// This module provides general, i.e. not platform-specific, CPU-related abstractions.
@@ -39,3 +44,12 @@ mod memory;
 ///
 /// This module defines a custom panic handler for operating system.
 mod panic;
+
+/// # Print Module
+///
+mod print;
+
+/// # Synchronization Module
+///
+/// This module implements basic synchronization primitives that are used to ensure thread safety.
+mod sync;
