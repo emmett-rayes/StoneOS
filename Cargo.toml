@@ -7,12 +7,14 @@ authors = ["Emmett Rayes <emmett.rayes@icloud.com>"]
 
 [features]
 default = ["bsp_rpi4", "boot_uefi"]
-bsp_rpi4 = []
+bsp_rpi4 = ["embedded-hal"]
 boot_bios = []
 boot_uefi = ["uefi", "uefi-services"]
 
 [dependencies]
 log = "0.4.20"
+embedded-hal = { version = "0.2.7", optional = true }
+lazy_static = { version = "1.4.0", features = ["spin_no_std"] }
 
 [target.'cfg(target_arch = "aarch64")'.dependencies]
 aarch64-cpu = "9.4.0"
