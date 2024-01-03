@@ -1,3 +1,5 @@
-pub trait Cpu {
-    fn park_core() -> !;
+pub fn park_core() -> ! {
+    loop {
+        core::hint::spin_loop();
+    }
 }
