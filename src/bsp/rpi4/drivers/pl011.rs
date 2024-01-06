@@ -1,11 +1,10 @@
 use core::hint::spin_loop;
 
+use tock_registers::{register_bitfields, register_structs};
 use tock_registers::interfaces::{Readable, Writeable};
 use tock_registers::registers::{ReadOnly, ReadWrite, WriteOnly};
-use tock_registers::{register_bitfields, register_structs};
 
 use crate::bsp::Bsp;
-use crate::cpu::Cpu;
 use crate::memory::address::PhysicalAddress;
 
 register_structs! {
@@ -142,7 +141,7 @@ impl Pl011 {
         self.registers.icr.set(0);
 
         // Set Baud rate
-        let divisor = (Bsp::CLOCK_SPEED as f64 / 16.0) / self.baud_rate as f64;
+        let divisor = (Bsp::UART0_CLOCK as f64 / 16.0) / self.baud_rate as f64;
         let integral = divisor as u32;
         let fractional = ((divisor % 1.0) * 64.0 + 0.5) as u32;
         self.registers.ibrd.write(IBRD::IBRD.val(integral));
