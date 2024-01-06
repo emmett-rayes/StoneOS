@@ -7,6 +7,7 @@ pub mod p0l11;
 
 impl Console for RPi4 {
     fn console() -> impl Read + Write {
+        // Safety: this is the only place where the raw address is used.
         let mut console = unsafe { Pl011::new(PL011_UART0_START, 921_600) };
         console.init();
         console

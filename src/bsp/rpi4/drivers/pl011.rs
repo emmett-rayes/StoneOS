@@ -159,7 +159,7 @@ impl Pl011 {
             .write(CR::UARTEN::SET + CR::TXE::SET + CR::RXE::SET);
     }
 
-    pub fn read_byte(&self) -> u8 {
+    pub fn read_byte(&mut self) -> u8 {
         if self.registers.fr.matches_all(FR::RXFE::SET) {
             while self.registers.fr.matches_all(FR::RXFE::SET) {
                 spin_loop();

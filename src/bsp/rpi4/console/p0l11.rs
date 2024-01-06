@@ -2,7 +2,7 @@ use crate::bsp::rpi4::drivers::pl011::Pl011;
 use crate::console::{Read, Write};
 
 impl Read for Pl011 {
-    fn read(&self) -> char {
+    fn read(&mut self) -> char {
         self.read_byte() as char
     }
 }

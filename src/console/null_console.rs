@@ -3,7 +3,7 @@ use crate::console::{Read, Write};
 pub struct NullConsole;
 
 impl Read for NullConsole {
-    fn read(&self) -> char {
+    fn read(&mut self) -> char {
         '\0'
     }
 }

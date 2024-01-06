@@ -1,13 +1,13 @@
 use lazy_static::lazy_static;
+use spin::mutex::SpinMutex;
 
 use crate::bsp::Bsp;
-use spin::mutex::SpinMutex;
 
 mod null_console;
 mod print;
 
 pub trait Read {
-    fn read(&self) -> char;
+    fn read(&mut self) -> char;
 }
 
 pub trait Write {
