@@ -44,7 +44,3 @@ mod memory;
 ///
 /// This module defines a custom panic handler for operating system.
 mod panic;
-
-/// # Print Module
-///
-mod print;
