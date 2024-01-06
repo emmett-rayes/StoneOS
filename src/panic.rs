@@ -1,7 +1,7 @@
-//! Until the bootloader is compiled separately from the kernel,
-//! a panic handler is needed only for non-uefi boot as the uefi crate comes with its own panic handler.
+/// Until the bootloader is compiled separately from the kernel,
+/// a panic handler is needed only for non-uefi boot as the uefi crate comes with its own panic handler.
 #[cfg(not(feature = "boot_uefi"))]
-mod no_uefi_panic {
+mod not_boot_uefi_panic {
     use core::panic::PanicInfo;
 
     use crate::cpu::park_core;
