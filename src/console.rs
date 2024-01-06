@@ -1,7 +1,10 @@
 use lazy_static::lazy_static;
 
 use crate::bsp::Bsp;
-use crate::sync::mutex::SpinMutex;
+use spin::mutex::SpinMutex;
+
+mod null_console;
+mod print;
 
 pub trait Read {
     fn read(&self) -> char;
@@ -15,9 +18,9 @@ pub trait Console {
     fn console() -> impl Read + Write;
 }
 
-pub type ConsoleImpl = impl Read + Write + Sync;
+type ConsoleImpl = impl Read + Write + Send + Sync;
 
-pub struct ConsoleWrapper(pub ConsoleImpl);
+pub struct ConsoleWrapper(ConsoleImpl);
 lazy_static! {
     pub static ref CONSOLE: SpinMutex<ConsoleWrapper> =
         SpinMutex::new(ConsoleWrapper(Bsp::console()));
