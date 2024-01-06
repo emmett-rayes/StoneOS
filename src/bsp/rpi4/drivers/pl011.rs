@@ -1,10 +1,9 @@
 use core::hint::spin_loop;
 
-use tock_registers::{register_bitfields, register_structs};
-use tock_registers::interfaces::{Readable, Writeable};
+use tock_registers::interfaces::{ReadWriteable, Readable, Writeable};
 use tock_registers::registers::{ReadOnly, ReadWrite, WriteOnly};
+use tock_registers::{register_bitfields, register_structs};
 
-use crate::bsp::Bsp;
 use crate::memory::address::PhysicalAddress;
 
 register_structs! {
@@ -121,41 +120,39 @@ register_bitfields![
 ];
 
 pub struct Pl011 {
-    baud_rate: usize,
     registers: PhysicalAddress<Registers>,
 }
 
 impl Pl011 {
-    pub unsafe fn new(mmio_base: usize, baud_rate: usize) -> Pl011 {
+    pub unsafe fn new(mmio_base: usize) -> Pl011 {
         Pl011 {
-            baud_rate,
             registers: PhysicalAddress::new(mmio_base),
         }
     }
 
-    /// Initialize UART in 8-bit no parity 1 stop bit mode.
+    /// Initialize UART in 8 data bits - no parity - 1 stop bit mode.
     /// We only write the fields that differ from the default.
-    pub fn init(&mut self) {
-        // Disable UART and clear pending interrupts
-        self.registers.cr.set(0);
+    pub fn init(&mut self, clock_speed: usize, baud_rate: usize) {
+        // Disable UART
+        self.registers.cr.modify(CR::UARTEN::CLEAR);
+
+        // Clear pending interrupts
         self.registers.icr.set(0);
 
         // Set Baud rate
-        let divisor = (Bsp::UART0_CLOCK as f64 / 16.0) / self.baud_rate as f64;
-        let integral = divisor as u32;
-        let fractional = ((divisor % 1.0) * 64.0 + 0.5) as u32;
-        self.registers.ibrd.write(IBRD::IBRD.val(integral));
-        self.registers.fbrd.write(FBRD::FBRD.val(fractional));
+        let divisor = clock_speed * 64 / 16 / baud_rate;
+        let integral = divisor / 64;
+        let fractional = divisor % 64;
+        self.registers.ibrd.write(IBRD::IBRD.val(integral as u32));
+        self.registers.fbrd.write(FBRD::FBRD.val(fractional as u32));
 
         // Set word length and enable FIFO
         self.registers
             .lcrh
-            .write(LCRH::WLEN::EightBit + LCRH::FEN::SET);
+            .modify(LCRH::WLEN::EightBit + LCRH::FEN::SET);
 
         // Enable UART
-        self.registers
-            .cr
-            .write(CR::UARTEN::SET + CR::TXE::SET + CR::RXE::SET);
+        self.registers.cr.modify(CR::UARTEN::SET);
     }
 
     pub fn read_byte(&mut self) -> u8 {

@@ -7,5 +7,6 @@ pub(crate) mod memory;
 pub struct RPi4;
 
 impl RPi4 {
-    const UART0_CLOCK: usize = 48_000_000;
+    const UART_BAUD: usize = 921_600;
+    const UART_CLOCK: usize = 48_000_000;
 }
