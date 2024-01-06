@@ -18,7 +18,7 @@ pub trait Console {
     fn console() -> impl Read + Write;
 }
 
-type ConsoleImpl = impl Read + Write + Send + Sync;
+type ConsoleImpl = impl Read + Write + Send;
 
 pub struct ConsoleWrapper(ConsoleImpl);
 lazy_static! {

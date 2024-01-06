@@ -126,8 +126,6 @@ pub struct Pl011 {
     registers: PhysicalAddress<Registers>,
 }
 
-unsafe impl Sync for Pl011 {}
-
 impl Pl011 {
     pub unsafe fn new(mmio_base: usize, baud_rate: usize) -> Pl011 {
         Pl011 {
