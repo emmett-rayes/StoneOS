@@ -1,7 +1,6 @@
-mod boot;
-
-mod console;
-
-mod memory;
+pub(crate) mod boot;
+pub(crate) mod console;
+pub(crate) mod cpu;
+pub(crate) mod memory;
 
 pub struct RPi4;

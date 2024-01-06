@@ -1,2 +1,2 @@
 #[cfg(feature = "boot_bios")]
-mod bios;
+pub(crate) mod bios;
