@@ -1,10 +1,12 @@
+#![no_std]
+
 use core::cell::UnsafeCell;
 use core::ops::{Deref, DerefMut};
 use core::sync::atomic::{AtomicBool, Ordering};
 
 pub struct MutexError<'a>(&'a str);
 
-pub struct SpinMutex<T> {
+pub struct SpinMutex<T: ?Sized> {
     lock: AtomicBool,
     inner: UnsafeCell<T>,
 }
@@ -35,9 +37,11 @@ impl<T> SpinMutex<T> {
     }
 }
 
-unsafe impl<T: Sync> Sync for SpinMutex<T> {}
+unsafe impl<T: ?Sized + Send> Send for SpinMutex<T> {}
 
-impl<T> Drop for SpinMutex<T> {
+unsafe impl<T: ?Sized + Send> Sync for SpinMutex<T> {}
+
+impl<T: ?Sized> Drop for SpinMutex<T> {
     fn drop(&mut self) {
         unsafe {
             self.inner.get().drop_in_place();
@@ -45,13 +49,15 @@ impl<T> Drop for SpinMutex<T> {
     }
 }
 
-pub struct SpinMutexGuard<'a, T: 'a> {
+pub struct SpinMutexGuard<'a, T: ?Sized + 'a> {
     mutex: &'a SpinMutex<T>,
 }
 
-unsafe impl<T: Sync> Send for SpinMutexGuard<'_, T> {}
+unsafe impl<T: ?Sized + Send> Send for SpinMutexGuard<'_, T> {}
 
-impl<T> Drop for SpinMutexGuard<'_, T> {
+unsafe impl<T: ?Sized + Sync> Sync for SpinMutexGuard<'_, T> {}
+
+impl<T: ?Sized> Drop for SpinMutexGuard<'_, T> {
     fn drop(&mut self) {
         self.mutex.lock.swap(false, Ordering::Release);
     }
