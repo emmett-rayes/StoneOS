@@ -5,6 +5,7 @@ use tock_registers::registers::{ReadOnly, ReadWrite, WriteOnly};
 use tock_registers::{register_bitfields, register_structs};
 
 use crate::memory::address::PhysicalAddress;
+use crate::memory::deref::DerefWrapper;
 
 register_structs! {
     Registers {
@@ -120,13 +121,13 @@ register_bitfields![
 ];
 
 pub struct Pl011 {
-    registers: PhysicalAddress<Registers>,
+    registers: DerefWrapper<Registers>,
 }
 
 impl Pl011 {
-    pub unsafe fn new(mmio_base: usize) -> Pl011 {
+    pub fn new(mmio_base: PhysicalAddress) -> Pl011 {
         Pl011 {
-            registers: PhysicalAddress::new(mmio_base),
+            registers: DerefWrapper::new(mmio_base),
         }
     }
 
