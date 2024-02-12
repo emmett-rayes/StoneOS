@@ -21,6 +21,7 @@ pub trait Console {
 type ConsoleImpl = impl Read + Write + Send;
 
 pub struct ConsoleWrapper(ConsoleImpl);
+
 lazy_static! {
     pub static ref CONSOLE: SpinMutex<ConsoleWrapper> =
         SpinMutex::new(ConsoleWrapper(Bsp::console()));
