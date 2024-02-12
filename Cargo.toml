@@ -1,6 +1,3 @@
-[workspace]
-members = ["libs/spin_mutex"]
-
 [package]
 name = "stone_os"
 version = "0.1.0"

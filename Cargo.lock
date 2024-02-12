@@ -126,10 +126,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "spin_mutex"
-version = "0.1.0"
-
-[[package]]
 name = "stone_os"
 version = "0.1.0"
 dependencies = [
