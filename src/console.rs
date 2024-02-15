@@ -1,7 +1,7 @@
+use crate::bsp::Bsp;
+use core::ops::{Deref, DerefMut};
 use lazy_static::lazy_static;
 use spin::mutex::SpinMutex;
-
-use crate::bsp::Bsp;
 
 mod null_console;
 mod print;
@@ -18,9 +18,23 @@ pub trait Console {
     fn console() -> impl Read + Write;
 }
 
-type ConsoleImpl = impl Read + Write + Send;
+pub type IConsole = impl Read + Write + Send;
 
-pub struct ConsoleWrapper(ConsoleImpl);
+pub struct ConsoleWrapper(IConsole);
+
+impl Deref for ConsoleWrapper {
+    type Target = IConsole;
+
+    fn deref(&self) -> &Self::Target {
+        &self.0
+    }
+}
+
+impl DerefMut for ConsoleWrapper {
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        &mut self.0
+    }
+}
 
 lazy_static! {
     pub static ref CONSOLE: SpinMutex<ConsoleWrapper> =

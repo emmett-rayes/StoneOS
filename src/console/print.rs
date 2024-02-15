@@ -6,7 +6,7 @@ use crate::console::Write;
 impl fmt::Write for ConsoleWrapper {
     fn write_str(&mut self, s: &str) -> fmt::Result {
         for char in s.chars() {
-            self.0.write(char);
+            self.write(char);
         }
         Ok(())
     }
