@@ -36,6 +36,11 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "baf1de4339761588bc0619e3cbc0120ee582ebb74b53b4efbf79117bd2da40fd"
 
 [[package]]
+name = "cond"
+version = "1.0.5"
+source = "git+https://github.com/emmett-rayes/cond.git#2c69518b0f11734c0b6bec91b413c7fc915315a8"
+
+[[package]]
 name = "embedded-hal"
 version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -130,6 +135,7 @@ name = "stone_os"
 version = "0.1.0"
 dependencies = [
  "aarch64-cpu",
+ "cond",
  "embedded-hal",
  "lazy_static",
  "log",
